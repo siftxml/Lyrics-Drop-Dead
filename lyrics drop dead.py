@@ -38,8 +38,7 @@ BOTTOM_SPAWN_OFFSET = 150
 
 
 class LyricBox:
-    """Kotak lirik tunggal yang memunculkan teks kata demi kata dan meluncur naik."""
-
+   
     def __init__(self, master, text, x, y, word_delay, initial_alt=False, is_fullscreen=False):
         self.master = master
         self.win = tk.Toplevel(master)
@@ -101,7 +100,6 @@ class LyricBox:
         return self.y + BOX_H < -50
     
     def reveal_word_by_word(self):
-        """Memunculkan kata penuh satu per satu mengikuti ketukan jeda musik."""
         if self.current_word_count <= len(self.words):
             displayed_text = " ".join(self.words[:self.current_word_count])
             self.label.config(text=displayed_text)
@@ -110,7 +108,6 @@ class LyricBox:
             self.win.after(self.word_delay, self.reveal_word_by_word)
 
     def set_colors(self, use_alt):
-        """Mengubah warna kotak secara instan mengikuti komando aplikasi utama."""
 
         if self.is_fullscreen:
             return
@@ -148,7 +145,6 @@ class LyricFloatApp:
         self.global_alt_color = False 
 
     def random_safe_x(self):
-        """Alternate between left and right positions only."""
         center_x = self.screen_w // 2
         spacing = BOX_W + 60  
         left_x = center_x - spacing
@@ -179,7 +175,6 @@ class LyricFloatApp:
         self.flash_all_boxes()
 
     def flash_all_boxes(self):
-        """Mengubah warna seluruh kotak secara bersamaan."""
         self.global_alt_color = not self.global_alt_color
         for box in self.boxes:
             box.set_colors(self.global_alt_color)
